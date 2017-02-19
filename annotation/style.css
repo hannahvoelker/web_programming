@@ -2,14 +2,24 @@
 	color: #f441cd;
 	font-style: italic;
 	text-align: center;
+	font-family: Arial;
 }
 
 #title {
 	color: #f44242;
 	text-align: center;
+	font-size: 2.8em;
+	font-style: bold;
+	font-family: Arial;
 }
 
 #failvideo {
 	display: block;
 	margin: auto;
+	background-color: #f4f3dc;
+	padding: 15px;
+}
+
+body {
+	background: #c7e6ed;
 }
