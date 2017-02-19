@@ -1,7 +1,15 @@
 #lyrics {
-	color: blue;
+	color: #f441cd;
+	font-style: italic;
+	text-align: center;
+}
+
+#title {
+	color: #f44242;
+	text-align: center;
 }
 
 #failvideo {
-	
+	display: block;
+	margin: auto;
 }
