@@ -96,15 +96,15 @@ function renderOthers(elements){
 		var who = elements[type][i].username;
 		// render w/ marker
 
-		// var driver = new.google.maps.Marker({
-		// 	position: them,
-		// 	title: who,
-		// 	icon: image
-		// });
-		// driver.setMap(map);
-		// google.maps.event.addListener(driver, 'click', function () {
-  //                               infoWindow.setContent(this.content);
-  //                               infoWindow.open(map, this);
-  //                           });
-	}
+	// 	var driver = new.google.maps.Marker({
+	// 		position: them,
+	// 		title: who,
+	// 		icon: image
+	// 	});
+	// 	driver.setMap(map);
+	// 	google.maps.event.addListener(driver, 'click', function () {
+ //                                infoWindow.setContent(this.content);
+ //                                infoWindow.open(map, this);
+ //                            });
+	 }
 }
