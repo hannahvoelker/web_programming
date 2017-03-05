@@ -7,6 +7,7 @@ Things that happen in this script:
  */ 
 var myLat = 0;
 var myLng = 0;
+var username = "vXeUlZrk";
 var me = new google.maps.LatLng(myLat, myLng);
 var myOptions = {
 	zoom: 13, // The larger the zoom number, the bigger the zoom
@@ -36,8 +37,7 @@ function getMyLocation() {
 	}
 }
 function renderMap() {
-	console.log(myLat);
-	console.log(myLng);
+	
 	me = new google.maps.LatLng(myLat, myLng);
 				
 	// Update map and go there...
@@ -47,7 +47,7 @@ function renderMap() {
 	// TODO: Make this a unique icon
 	marker = new google.maps.Marker({
 		position: me,
-		title: "You are here."
+		title: username
 		});
 	marker.setMap(map);
 	getOthersLocation();				
@@ -67,12 +67,30 @@ function getOthersLocation() {
 			console.log(elements);
 			renderOthers(elements);
 		}
-		else{
-			console.log("Something went wrong");
-		}
 	}
 	request.send("username=vXeUlZrk&lat="+myLat+"&lng="+myLng);
 }
 function renderOthers(elements){
 
+	for (i = 0; i < elements.length; i++){
+		// calculate distance
+		var theirLat = elements[i].lat;
+		var theirLng = elements[i].lng;
+		var them = new google.maps.LatLng({lat: theirLat, lng: theirLng});
+		var dist = google.maps.geometry.spherical.computeDistanceBetween(me, them);
+		// meters to miles conversion
+		dist = dist * 0.000621371;
+		// extract username
+		var who = elements[i].username;
+		// render w/ driver marker
+		var driver = google.maps.Marker({
+			position: them,
+			title: who
+		});
+		driver.setMap(map);
+		google.maps.event.addListener(driver, 'click', function () {
+                                infoWindow.setContent(this.content);
+                                infoWindow.open(map, this);
+                            });
+	}
 }
