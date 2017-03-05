@@ -47,14 +47,15 @@ function renderMap() {
 	// TODO: Make this a unique icon
 	marker = new google.maps.Marker({
 		position: me,
-		title: username
+		title: username,
+		icon: "me.png"
 		});
 	marker.setMap(map);
 	getOthersLocation();				
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
-		infowindow.setContent(marker.title);
-		infowindow.open(map, marker);
+		infowindow.setContent(this.title);
+		infowindow.open(map, this);
 		});
 }
 function getOthersLocation() {
@@ -64,33 +65,46 @@ function getOthersLocation() {
 	request.onreadystatechange = function(){
 		if (request.readyState == 4 && request.status == 200 ){
 			elements = JSON.parse(request.responseText);
-			console.log(elements);
 			renderOthers(elements);
 		}
 	}
 	request.send("username=vXeUlZrk&lat="+myLat+"&lng="+myLng);
 }
 function renderOthers(elements){
+	//determining what we will render, since this could change
+	if (elements["vehicles"]){
+		var type = "vehicles";
+		var image = "black_car.png"
+	}
+	else {
+		var type = "passengers";
+		var image = "passenger.png"
 
-	for (i = 0; i < elements.length; i++){
+	}
+	for (i = 0; i < elements[type].length; i++){
 		// calculate distance
-		var theirLat = elements[i].lat;
-		var theirLng = elements[i].lng;
-		var them = new google.maps.LatLng({lat: theirLat, lng: theirLng});
+		var theirLat = elements[type][i].lat;
+		var theirLng = elements[type][i].lng;
+		console.log(theirLat);
+		console.log(theirLng);
+		var them = new google.maps.LatLng(theirLat, theirLng);
+		console.log(them);
 		var dist = google.maps.geometry.spherical.computeDistanceBetween(me, them);
 		// meters to miles conversion
 		dist = dist * 0.000621371;
 		// extract username
-		var who = elements[i].username;
-		// render w/ driver marker
-		var driver = google.maps.Marker({
-			position: them,
-			title: who
-		});
-		driver.setMap(map);
-		google.maps.event.addListener(driver, 'click', function () {
-                                infoWindow.setContent(this.content);
-                                infoWindow.open(map, this);
-                            });
+		var who = elements[type][i].username;
+		// render w/ marker
+
+		// var driver = new.google.maps.Marker({
+		// 	position: them,
+		// 	title: who,
+		// 	icon: image
+		// });
+		// driver.setMap(map);
+		// google.maps.event.addListener(driver, 'click', function () {
+  //                               infoWindow.setContent(this.content);
+  //                               infoWindow.open(map, this);
+  //                           });
 	}
 }
