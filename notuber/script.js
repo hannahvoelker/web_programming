@@ -3,7 +3,7 @@ Things that happen in this script:
  - Get current location
  - Getting info from the heroku server 
  - Caculating distance based on current location
- - Rendering onto the map.
+ - Rendering onto the map
  */ 
 var myLat = 0;
 var myLng = 0;
@@ -50,13 +50,13 @@ function renderMap() {
 		title: username,
 		icon: "me.png"
 		});
-	marker.setMap(map);
-	getOthersLocation();				
+	marker.setMap(map);			
 	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.setContent(this.title);
 		infowindow.open(map, this);
 		});
+	getOthersLocation();	
 }
 function getOthersLocation() {
 	var request = new XMLHttpRequest();
@@ -85,26 +85,24 @@ function renderOthers(elements){
 		// calculate distance
 		var theirLat = elements[type][i].lat;
 		var theirLng = elements[type][i].lng;
-		console.log(theirLat);
-		console.log(theirLng);
 		var them = new google.maps.LatLng(theirLat, theirLng);
-		console.log(them);
 		var dist = google.maps.geometry.spherical.computeDistanceBetween(me, them);
 		// meters to miles conversion
 		dist = dist * 0.000621371;
+		dist = dist.toString();
 		// extract username
 		var who = elements[type][i].username;
 		// render w/ marker
-
-	// 	var driver = new.google.maps.Marker({
-	// 		position: them,
-	// 		title: who,
-	// 		icon: image
-	// 	});
-	// 	driver.setMap(map);
-	// 	google.maps.event.addListener(driver, 'click', function () {
- //                                infoWindow.setContent(this.content);
- //                                infoWindow.open(map, this);
- //                            });
-	 }
+		var driver = new google.maps.Marker({
+			position: them,
+			title: who,
+			content: who+ ": " + dist + " miles away",
+			icon: image
+		});
+		driver.setMap(map);
+		google.maps.event.addListener(driver, 'click', function () {
+                                infowindow.setContent(this.content);
+                                infowindow.open(map, this);
+        });
+	}
 }
