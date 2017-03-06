@@ -1,8 +1,9 @@
 #map {
-	width: 600px;
-	height: 600px
+	width: 1200px;
+	height: 1000px
 }
 html, body {
 	margin: 0px;
 	padding: 0px;
+	background: black;
 }
