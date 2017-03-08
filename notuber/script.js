@@ -68,18 +68,17 @@ function getOthersLocation() {
 			renderOthers(elements);
 		}
 	}
-	request.send("username=vXeUlZrk&lat="+myLat+"&lng="+myLng);
+	request.send("username="+username+"&lat="+myLat+"&lng="+myLng);
 }
 function renderOthers(elements){
 	//determining what we will render, since this could change
 	if (elements["vehicles"]){
 		var type = "vehicles";
-		var image = "black_car.png"
+		var image = "black_car.png";
 	}
 	else {
 		var type = "passengers";
-		var image = "passenger.png"
-
+		var image = "passenger.png";
 	}
 	for (i = 0; i < elements[type].length; i++){
 		// calculate distance
@@ -88,7 +87,7 @@ function renderOthers(elements){
 		var them = new google.maps.LatLng(theirLat, theirLng);
 		var dist = google.maps.geometry.spherical.computeDistanceBetween(me, them);
 		// meters to miles conversion
-		dist = dist * 0.000621371;
+		dist = dist/1609.344;
 		dist = dist.toString();
 		// extract username
 		var who = elements[type][i].username;
