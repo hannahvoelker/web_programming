@@ -60,7 +60,7 @@ function renderMap() {
 }
 function getOthersLocation() {
 	var request = new XMLHttpRequest();
-	request.open("POST", "https://defense-in-derpth.herokuapp.com/submit", true);
+	request.open("POST", "https://gentle-lake-51748.herokuapp.com/submit", true);
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	request.onreadystatechange = function(){
 		if (request.readyState == 4 && request.status == 200 ){
